@@ -14,19 +14,24 @@ namespace dirox.emotiv.controller
     {
         DataStreamManager _dataStreamMgr = DataStreamManager.Instance;
 
-        [SerializeField] private Text  eegHeader;     // header of eeg data exclude MARKERS
-        [SerializeField] private Text  eegData;      // eeg data stream
-        [SerializeField] private Text  motHeader;    // header of motion data
-        [SerializeField] private Text  motData;      // motion data 
-        [SerializeField] private Text  pmHeader;     // header of performance metric data
-        [SerializeField] private Text  pmData;       // performance metric data
+        //[SerializeField] private Text  eegHeader;     // header of eeg data exclude MARKERS
+        //[SerializeField] private Text  eegData;      // eeg data stream
+        //[SerializeField] private Text  motHeader;    // header of motion data
+        //[SerializeField] private Text  motData;      // motion data 
+        //[SerializeField] private Text  pmHeader;     // header of performance metric data
+        //[SerializeField] private Text  pmData;       // performance metric data
         float _timerDataUpdate = 0;
         const float TIME_UPDATE_DATA = 1f;
+
+        [Header("Start-Up Parent UI")]
+        public GameObject setupUI;
+        public GameObject menuUI;
 
         [Header("Performance Metrics")]
         [SerializeField] private double attention;
         [SerializeField] private double stress;
         [SerializeField] private double relaxation;
+
 
         void Update() 
         {
@@ -53,8 +58,8 @@ namespace dirox.emotiv.controller
                     else
                         eegDataStr      +=  "null, "; // for null value
                 }
-                eegHeader.text  = eegHeaderStr;
-                eegData.text    = eegDataStr;
+                //eegHeader.text  = eegHeaderStr;
+                //eegData.text    = eegDataStr;
             }
 
             // update motion data
@@ -70,8 +75,8 @@ namespace dirox.emotiv.controller
                     else
                         motDataStr      +=  "null, "; // for null value
                 }
-                motHeader.text  = motHeaderStr;
-                motData.text    = motDataStr;
+                //motHeader.text  = motHeaderStr;
+                //motData.text    = motDataStr;
             }
             // update pm data
             if (DataStreamManager.Instance.GetNumberPMSamples() > 0) {
@@ -106,8 +111,8 @@ namespace dirox.emotiv.controller
                     pmDataStr      +=  data.ToString() + ", ";
                 }
                 if (hasPMUpdate) {
-                    pmHeader.text  = pmHeaderStr;
-                    pmData.text    = pmDataStr;
+                    //pmHeader.text  = pmHeaderStr;
+                    //pmData.text    = pmDataStr;
 
 
                 }
@@ -144,8 +149,8 @@ namespace dirox.emotiv.controller
             List<string> dataStreamList = new List<string>(){DataStreamName.EEG};
             _dataStreamMgr.UnSubscribeData(dataStreamList);
             // clear text
-            eegHeader.text  = "EEG Header: ";
-            eegData.text    = "EEG Data: ";
+            //eegHeader.text  = "EEG Header: ";
+            //eegData.text    = "EEG Data: ";
         }
 
         /// <summary>
@@ -165,8 +170,8 @@ namespace dirox.emotiv.controller
             List<string> dataStreamList = new List<string>(){DataStreamName.Motion};
             _dataStreamMgr.UnSubscribeData(dataStreamList);
             // clear text
-            motHeader.text  = "Motion Header: ";
-            motData.text    = "Motion Data: ";
+            //motHeader.text  = "Motion Header: ";
+            //motData.text    = "Motion Data: ";
         }
 
         /// <summary>
@@ -186,8 +191,14 @@ namespace dirox.emotiv.controller
             List<string> dataStreamList = new List<string>(){DataStreamName.PerformanceMetrics};
             _dataStreamMgr.UnSubscribeData(dataStreamList);
             // clear text
-            pmHeader.text  = "Performance metrics Header: ";
-            pmData.text    = "Performance metrics Data: ";
+            //pmHeader.text  = "Performance metrics Header: ";
+            //pmData.text    = "Performance metrics Data: ";
+        }
+
+        public void HideSetup()
+        {
+            setupUI.SetActive(false);
+            menuUI.SetActive(false);
         }
     }
 }

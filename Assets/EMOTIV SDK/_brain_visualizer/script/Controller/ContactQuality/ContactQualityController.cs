@@ -66,12 +66,10 @@ namespace dirox.emotiv.controller
         public void onButtonDone()
         {
             Deactivate();
-            //examplesBoard.Activate();
+  
+            newMenu.SetActive(true);
             dataSubscriber.Activate();
 
-            // connectionIndicatorGroup.Activate ();
-
-            newMenu.SetActive(true);
         }
             
         public void QuickOpen() {
