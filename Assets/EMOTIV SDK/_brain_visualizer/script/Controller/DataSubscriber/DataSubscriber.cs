@@ -23,6 +23,11 @@ namespace dirox.emotiv.controller
         float _timerDataUpdate = 0;
         const float TIME_UPDATE_DATA = 1f;
 
+        [Header("Performance Metrics")]
+        [SerializeField] private double attention;
+        [SerializeField] private double stress;
+        [SerializeField] private double relaxation;
+
         void Update() 
         {
             if (!this.isActive) {
@@ -76,18 +81,35 @@ namespace dirox.emotiv.controller
                 foreach (var ele in DataStreamManager.Instance.GetPMLists()) {
                     string chanStr  = ele;
                     double data     = DataStreamManager.Instance.GetPMData(ele);
+                    
                     if (chanStr == "TIMESTAMP" && (data == -1))
                     {
                         // has no new update of performance metric data
                         hasPMUpdate = false;
                         break;
                     }
+
+                    if(ele == "attention")
+                    {
+                        attention = data;
+                    }
+                    else if(ele == "str")
+                    {
+                        stress = data;
+                    }
+                    else if(ele == "rel")
+                    {
+                        relaxation = data;
+                    }
+
                     pmHeaderStr    += chanStr + ", ";
                     pmDataStr      +=  data.ToString() + ", ";
                 }
                 if (hasPMUpdate) {
                     pmHeader.text  = pmHeaderStr;
                     pmData.text    = pmDataStr;
+
+
                 }
                 
             }
