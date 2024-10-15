@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using EmotivUnityPlugin;
 using Zenject;
+using UnityEngine.SceneManagement;
 
 namespace dirox.emotiv.controller
 {
@@ -28,13 +29,12 @@ namespace dirox.emotiv.controller
         public GameObject menuUI;
 
         [Header("Performance Metrics")]
-        [SerializeField] private double attention;
-        [SerializeField] private double stress;
-        [SerializeField] private double relaxation;
-
+        public double attention;
+        public double stress;
+        public double relaxation;
 
         void Update() 
-        {
+        {       
             if (!this.isActive) {
                 return;
             }
@@ -119,7 +119,6 @@ namespace dirox.emotiv.controller
                 
             }
         }
-
         public override void Activate()
         {
             Debug.Log("DataSubscriber: Activate");
@@ -199,6 +198,7 @@ namespace dirox.emotiv.controller
         {
             setupUI.SetActive(false);
             menuUI.SetActive(false);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
         }
     }
 }
