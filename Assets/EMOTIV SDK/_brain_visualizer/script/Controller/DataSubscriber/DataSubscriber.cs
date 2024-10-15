@@ -198,7 +198,7 @@ namespace dirox.emotiv.controller
         {
             setupUI.SetActive(false);
             menuUI.SetActive(false);
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
         }
     }
 }
