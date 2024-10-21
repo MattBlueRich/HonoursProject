@@ -113,10 +113,7 @@ namespace dirox.emotiv.controller
                 if (hasPMUpdate) {
                     //pmHeader.text  = pmHeaderStr;
                     //pmData.text    = pmDataStr;
-
-
-                }
-                
+                }         
             }
         }
         public override void Activate()
@@ -199,6 +196,13 @@ namespace dirox.emotiv.controller
             setupUI.SetActive(false);
             menuUI.SetActive(false);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }
+
+        public void onMCStart()
+        {
+            Debug.Log("onMCStart");
+            List<string> dataStreamList = new List<string>() { DataStreamName.MentalCommands };
+            _dataStreamMgr.SubscribeMoreData(dataStreamList);
         }
     }
 }

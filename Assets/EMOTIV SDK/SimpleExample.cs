@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EmotivUnityPlugin;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SimpleExample : MonoBehaviour
 {
@@ -327,5 +328,10 @@ public class SimpleExample : MonoBehaviour
             _streams.Add("com");
         }
         return _streams;
+    }
+
+    public void movescene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 }

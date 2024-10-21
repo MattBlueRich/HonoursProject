@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene.unity
     guid: db6becaa632155a4f9fd3a0b54306555
   - enabled: 1
+    path: Assets/EMOTIV SDK/SimpleExample 1.unity
+    guid: e020b7f85675a1d4d9e0d0adae1f5e11
+  - enabled: 1
     path: Assets/Scenes/New Scene.unity
     guid: f6f18c5561b705b488aa6e8ff9c762aa
   m_configObjects: {}

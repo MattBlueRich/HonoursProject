@@ -1,4 +1,5 @@
 using dirox.emotiv.controller;
+using EmotivUnityPlugin;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class OutputPMValues : MonoBehaviour
 {
     public DataSubscriber dataSubscriber;
+    EmotivUnityItf _eItf = EmotivUnityItf.Instance;
     public TextMeshProUGUI attText, strText, relText;
 
     public float currentAtt = 0.0f;
@@ -24,14 +26,14 @@ public class OutputPMValues : MonoBehaviour
 
         // Attention Counter
 
-        if(currentAtt < (float)dataSubscriber.attention)
+        if(currentAtt < (float)_eItf.attentionPow)
         {
             currentAtt += tickSpeed * Time.deltaTime;
             currentAtt = Mathf.Round(currentAtt * 10.0f) * 0.1f;
             attText.text = currentAtt.ToString("F1");
         }
 
-        if (currentAtt > (float)dataSubscriber.attention)
+        if (currentAtt > (float)_eItf.attentionPow)
         {
             currentAtt -= tickSpeed * Time.deltaTime;
             currentAtt = Mathf.Round(currentAtt * 10.0f) * 0.1f;
@@ -40,14 +42,14 @@ public class OutputPMValues : MonoBehaviour
 
         // Relaxation Counter
 
-        if (currentRel < (float)dataSubscriber.relaxation)
+        if (currentRel < (float)_eItf.relaxationPow)
         {
             currentRel += tickSpeed * Time.deltaTime;
             currentRel = Mathf.Round(currentRel * 10.0f) * 0.1f;
             relText.text = currentRel.ToString("F1");
         }
 
-        if (currentRel > (float)dataSubscriber.relaxation)
+        if (currentRel > (float)_eItf.relaxationPow)
         {
             currentRel -= tickSpeed * Time.deltaTime;
             currentRel = Mathf.Round(currentRel * 10.0f) * 0.1f;
@@ -56,14 +58,14 @@ public class OutputPMValues : MonoBehaviour
 
         // Stress Counter
 
-        if (currentStr < (float)dataSubscriber.stress)
+        if (currentStr < (float)_eItf.stressPow)
         {
             currentStr += tickSpeed * Time.deltaTime;
             currentStr = Mathf.Round(currentStr * 10.0f) * 0.1f;
             strText.text = currentStr.ToString("F1");
         }
 
-        if (currentStr > (float)dataSubscriber.stress)
+        if (currentStr > (float)_eItf.stressPow)
         {
             currentStr -= tickSpeed * Time.deltaTime;
             currentStr = Mathf.Round(currentStr * 10.0f) * 0.1f;
