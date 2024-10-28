@@ -53,6 +53,10 @@ namespace EmotivUnityPlugin
         private double _betaH;
         private double _gamma;
 
+        // Setup
+
+        public bool headsetValid = false;
+
         public class MentalComm{
             public string act = "NULL";
             public double pow = 0;
@@ -143,10 +147,23 @@ namespace EmotivUnityPlugin
         public void CreateSessionWithHeadset(string headsetId)
         {
             // start data stream without streams -> create session with the headset
-            if (_isAuthorizedOK)
+            if (_isAuthorizedOK) 
+            {
                 _dsManager.StartDataStream(new List<string>(), headsetId);
-            else
+
+                if(_dsManager.GetWantedHeadset() != headsetId)
+                {
+                    headsetValid = false;
+                }
+                else
+                {
+                    headsetValid = true;
+                }
+            }
+            else 
+            {
                 UnityEngine.Debug.LogWarning("Please wait authorize successfully before creating session with headset " + headsetId);
+            } 
         }
 
         /// <summary>
