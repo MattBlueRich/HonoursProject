@@ -9,7 +9,6 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class OutputPMValues : MonoBehaviour
 {
-    public DataSubscriber dataSubscriber;
     EmotivUnityItf _eItf = EmotivUnityItf.Instance;
     public TextMeshProUGUI attText, strText, relText;
 
