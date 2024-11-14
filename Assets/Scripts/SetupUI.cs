@@ -81,4 +81,9 @@ public class SetupUI : MonoBehaviour
         errorText.SetActive(false);
         headsetIDField.text = string.Empty;
     }
+
+    public void SetProfile(string profileID)
+    {
+        _eItf.LoadProfile(profileID);
+    }
 }

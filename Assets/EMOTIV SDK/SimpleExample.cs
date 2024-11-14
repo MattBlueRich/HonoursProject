@@ -329,9 +329,4 @@ public class SimpleExample : MonoBehaviour
         }
         return _streams;
     }
-
-    public void movescene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
-    }
 }
