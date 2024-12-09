@@ -13,11 +13,15 @@ public class SetupUI : MonoBehaviour
     public SimpleExample simpleExample;
 
     [Header("Setup UI")]
-    public GameObject[] screens;
-    public TMP_InputField headsetIDField;
+    [SerializeField] private GameObject[] menuScreens; // This refers to the different UI panels the menu switches between.
+    [SerializeField] private TMP_InputField headsetIDField; // This is the input field from the "Example UI" panel, for storing the inputted headset ID (headset type + ID).
     public UnityEngine.UI.Button screen2ConfirmButton;
     public UnityEngine.UI.Button screen2ReturnButton;
     public GameObject errorText;
+
+    [Header("Transition")]
+    [SerializeField] private Animator FadeTransitionAnimator; // This animator performs a basic fade transition between different UI panel screens.
+    [SerializeField] private float transitionTime = 1.0f;
 
     EmotivUnityItf _eItf = EmotivUnityItf.Instance;
 
@@ -35,18 +39,8 @@ public class SetupUI : MonoBehaviour
 
     // This is used by the navigation buttons to move between the Setup UI windows.
     public void SwitchToScreen(int screenNo)
-    {     
-        for (int i = 0; i < screens.Length; i++)
-        {
-            if(i+1 == screenNo)
-            {
-                screens[i].SetActive(true);
-            }
-            else
-            {
-                screens[i].SetActive(false);
-            }
-        }
+    {
+        StartCoroutine(SwitchScreenWithFade(screenNo));
     }
 
     // This is used by the headset ID input field to make all the letters capitalized.
@@ -85,5 +79,27 @@ public class SetupUI : MonoBehaviour
     public void SetProfile(string profileID)
     {
         _eItf.LoadProfile(profileID);
+    }
+
+    IEnumerator SwitchScreenWithFade(int num)
+    {
+        FadeTransitionAnimator.SetBool("FadeIn", true);
+
+        yield return new WaitForSeconds(transitionTime);
+
+        for (int i = 0; i < menuScreens.Length; i++)
+        {
+            if (i + 1 == num)
+            {
+                menuScreens[i].SetActive(true);
+                
+            }
+            else
+            {
+                menuScreens[i].SetActive(false);
+            }
+        }
+
+        FadeTransitionAnimator.SetBool("FadeIn", false);
     }
 }
