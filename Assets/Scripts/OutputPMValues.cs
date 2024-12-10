@@ -10,13 +10,19 @@ using UnityEngine.SocialPlatforms.Impl;
 public class OutputPMValues : MonoBehaviour
 {
     EmotivUnityItf _eItf = EmotivUnityItf.Instance;
-    public TextMeshProUGUI attText, strText, relText;
 
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI attText;
+    [SerializeField] private TextMeshProUGUI strText;
+    [SerializeField] private TextMeshProUGUI relText;
+
+    [Header("Performance Metrics Values")]
     public float currentAtt = 0.0f;
     public float currentStr = 0.0f;
     public float currentRel = 0.0f;
 
-    public float tickSpeed = 20;
+    [Header("Value Tick")]
+    [SerializeField] private float tickSpeed = 20;
 
     private void Update()
     {
