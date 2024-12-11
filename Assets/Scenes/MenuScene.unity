@@ -1021,6 +1021,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 37430949}
     m_Modifications:
+    - target: {fileID: 1208362076493091400, guid: f7523a51920ff084987e0e0b1494d245,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 53c8fd1f5c26c7f4bb47e4aea356885f,
+        type: 3}
     - target: {fileID: 3253992436631842326, guid: f7523a51920ff084987e0e0b1494d245,
         type: 3}
       propertyPath: m_Name
@@ -6568,10 +6574,10 @@ RectTransform:
   m_Father: {fileID: 710725585}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000030517578, y: 0.000030517578}
+  m_SizeDelta: {x: 2041.353, y: 1156.644}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1039651863
 MonoBehaviour:
@@ -6586,7 +6592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.7372549}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.6862745}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9545,6 +9551,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 37430949}
     m_Modifications:
+    - target: {fileID: 1208362076493091400, guid: f7523a51920ff084987e0e0b1494d245,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5c208328e4a03cd4ab321137a8ac091d,
+        type: 3}
     - target: {fileID: 3253992436631842326, guid: f7523a51920ff084987e0e0b1494d245,
         type: 3}
       propertyPath: m_Name
@@ -10006,6 +10018,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 37430949}
     m_Modifications:
+    - target: {fileID: 1208362076493091400, guid: f7523a51920ff084987e0e0b1494d245,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8e87b4872af6f6e4abffa1e7b55e43d6,
+        type: 3}
     - target: {fileID: 3253992436631842326, guid: f7523a51920ff084987e0e0b1494d245,
         type: 3}
       propertyPath: m_Name
@@ -10901,6 +10919,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 37430949}
     m_Modifications:
+    - target: {fileID: 1208362076493091400, guid: f7523a51920ff084987e0e0b1494d245,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f49e2a7270886049ba2cd4e99104428,
+        type: 3}
     - target: {fileID: 3253992436631842326, guid: f7523a51920ff084987e0e0b1494d245,
         type: 3}
       propertyPath: m_Name
