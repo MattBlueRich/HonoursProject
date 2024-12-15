@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/EMOTIV SDK/EmotivUnityPlugin.unity
+    path: Assets/Import/EMOTIV SDK/EmotivUnityPlugin.unity
     guid: ee5bec8a3b94441e1a701424d4cfc49c
   - enabled: 0
     path: 
