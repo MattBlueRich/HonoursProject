@@ -13,6 +13,9 @@ public class SetupUI : MonoBehaviour
     [Header("Setup UI")]
     [SerializeField] private TMP_InputField headsetIDField; // This is the input field from the "Example UI" panel, for storing the inputted headset ID (headset type + ID).
     public GameObject errorText;
+    public CanvasGroup[] section1UI;
+    public CanvasGroup[] section2UI;
+    public TextMeshProUGUI selectHeadsetText;
 
     private string typeSuffix = string.Empty;
     private string idSuffix = string.Empty;
@@ -25,13 +28,16 @@ public class SetupUI : MonoBehaviour
     private void Start()
     {
         // Set default headset type value.
-        typeSuffix = "MN8";
-        UpdateHeadsetInput();
+        SetHeadsetType("MN8");
+
+        // Focus on headset type button selection.
+        SetupUIFocus(1);
     }
     public void SetHeadsetType(string type)
     {
         typeSuffix = type;
         UpdateHeadsetInput();
+        selectHeadsetText.text = "SELECT YOUR HEADSET TYPE: (>" + typeSuffix + ")";
     }
 
     // This is used by the headset ID input field to make all the letters capitalized.
@@ -74,5 +80,32 @@ public class SetupUI : MonoBehaviour
     public void UpdateHeadsetInput()
     {
         headsetInput = typeSuffix + "-" + idSuffix;
+    }
+
+    public void SetupUIFocus(int sectionToFocus)
+    {
+        switch(sectionToFocus)
+        {
+            case 1:
+                for (int i = 0; i < section1UI.Length; i++)
+                {
+                    section1UI[i].alpha = 1;
+                }
+                for (int i = 0; i < section2UI.Length; i++)
+                {
+                    section2UI[i].alpha = 0.3f;
+                }
+                break;
+            case 2:
+                for (int i = 0; i < section1UI.Length; i++)
+                {
+                    section1UI[i].alpha = 0.3f;
+                }
+                for (int i = 0; i < section2UI.Length; i++)
+                {
+                    section2UI[i].alpha = 1.0f;
+                }
+                break;
+        }
     }
 }
