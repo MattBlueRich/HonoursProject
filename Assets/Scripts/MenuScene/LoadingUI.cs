@@ -22,6 +22,13 @@ public class LoadingUI : MonoBehaviour
     {
         currentTime = 0;
         loadTime = Random.Range(minRanLoadTime, maxRanLoadTime);
+        InvokeRepeating("PrintTextUpdate", Random.Range(0.05f, 0.3f), Random.Range(0.05f, 0.3f));
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (i == 0) continue;
+            Destroy(transform.GetChild(i).gameObject);
+        }
     }
 
     private void Update()
@@ -36,8 +43,21 @@ public class LoadingUI : MonoBehaviour
             {
                 hasEnded = true;
                 currentTime = loadTime;
+                CancelInvoke("PrintTextUpdate");
+                Debug.Log("LOADING COMPLETE!");
                 // code when complete here.
             }
+        }
+    }
+
+    public void PrintTextUpdate()
+    {
+        if (Mathf.Round(currentTime * 100) / 100 < loadTime)
+        {
+            float percent = currentTime / loadTime * 100;
+            float roundedPercent = Mathf.Round(percent * 100) / 100;
+            TextMeshProUGUI textUpdate = Instantiate(loadingText, this.transform);
+            textUpdate.text = "LOADING... (" + roundedPercent + "% COMPLETED)";
         }
     }
 }
