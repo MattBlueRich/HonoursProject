@@ -22,7 +22,7 @@ public class LoadingUI : MonoBehaviour
     {
         currentTime = 0;
         loadTime = Random.Range(minRanLoadTime, maxRanLoadTime);
-        InvokeRepeating("PrintTextUpdate", Random.Range(0.05f, 0.3f), Random.Range(0.05f, 0.3f));
+        InvokeRepeating("PrintTextUpdate", 0.1F, 0.1F);
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -52,10 +52,18 @@ public class LoadingUI : MonoBehaviour
 
     public void PrintTextUpdate()
     {
-        if (Mathf.Round(currentTime * 100) / 100 < loadTime)
+        StartCoroutine("DelayPrint");
+    }
+
+    IEnumerator DelayPrint()
+    {
+        yield return new WaitForSeconds(Random.Range(0.3f, 1.0f));
+
+        float percent = currentTime / loadTime * 100;
+        float roundedPercent = Mathf.Round(percent * 100) / 100;
+
+        if (roundedPercent < 100)
         {
-            float percent = currentTime / loadTime * 100;
-            float roundedPercent = Mathf.Round(percent * 100) / 100;
             TextMeshProUGUI textUpdate = Instantiate(loadingText, this.transform);
             textUpdate.text = "LOADING... (" + roundedPercent + "% COMPLETED)";
         }
