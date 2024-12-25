@@ -12,7 +12,6 @@ public class SetupUI : MonoBehaviour
 {
     [Header("Setup UI")]
     [SerializeField] private TMP_InputField headsetIDField; // This is the input field from the "Example UI" panel, for storing the inputted headset ID (headset type + ID).
-    public GameObject errorText;
     public CanvasGroup[] section1UI;
     public CanvasGroup[] section2UI;
     public TextMeshProUGUI selectHeadsetText;
@@ -23,9 +22,16 @@ public class SetupUI : MonoBehaviour
     [Header("Input")]
     public string headsetInput = string.Empty;
 
+    [HideInInspector] public bool headsetValid = false;
+
     EmotivUnityItf _eItf = EmotivUnityItf.Instance;
 
     private void Start()
+    {
+        SetDefaultValues();
+    }
+
+    public void SetDefaultValues()
     {
         // Set default headset type value.
         SetHeadsetType("MN8");
@@ -33,6 +39,7 @@ public class SetupUI : MonoBehaviour
         // Focus on headset type button selection.
         SetupUIFocus(1);
     }
+
     public void SetHeadsetType(string type)
     {
         typeSuffix = type;
@@ -47,31 +54,26 @@ public class SetupUI : MonoBehaviour
     }
 
     // When the player enters their ID in the headset ID input field, this checks if the entered ID is valid and enables the confirm navigation button.
-    public void SetHeadsetID(string ID)
+    public void SetHeadsetID()
     {
-        idSuffix = ID;
+
+        idSuffix = headsetIDField.text;
         UpdateHeadsetInput();
 
         _eItf.CreateSessionWithHeadset(headsetInput); // Submit headset ID.
 
         if (_eItf.headsetValid)
         {
-            errorText.SetActive(false);
+            headsetValid = true;
         }
         else
-        {
-            errorText.SetActive(true);
+        {            
+            headsetValid = false;
+            // Reset invalid information.
             idSuffix = string.Empty;
+            headsetIDField.text = string.Empty;
         }
     }
-
-    // This is used by the return button in the second setup UI screen ("(2) Insert Headset ID") to reset screen 2.
-    public void ClearID()
-    {
-        errorText.SetActive(false);
-        headsetIDField.text = string.Empty;
-    }
-
     public void SetProfile(string profileID)
     {
         _eItf.LoadProfile(profileID);

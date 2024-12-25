@@ -8,6 +8,10 @@ public class LoadingUI : MonoBehaviour
 {
     [Header("UI")]
     public TextMeshProUGUI loadingText;
+    public GameObject errorScreen;
+    public GameObject mainMenuScreen;
+    public SetupUI setupUI;
+    public GameObject loadingUI;
 
     [Header("Load Time Settings")]
     public float minRanLoadTime;
@@ -18,9 +22,19 @@ public class LoadingUI : MonoBehaviour
     private float loadTime;
     public float currentTime;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public MenuBGM menuBGM;
+
+    [Header("Transition")]
+    public Animator fadeAnimator;
+
     private void OnEnable()
     {
+        audioSource.Play();
+        hasEnded = false;
         currentTime = 0;
+
         loadTime = Random.Range(minRanLoadTime, maxRanLoadTime);
         InvokeRepeating("PrintTextUpdate", 0.1F, 0.1F);
 
@@ -31,6 +45,7 @@ public class LoadingUI : MonoBehaviour
         }
     }
 
+    // Update() runs a timer which lasts a random amount between min and max values. When it is finished, it either loads the error screen or main menu depending on if the headset is valid.
     private void Update()
     {
         if(currentTime < loadTime)
@@ -43,9 +58,26 @@ public class LoadingUI : MonoBehaviour
             {
                 hasEnded = true;
                 currentTime = loadTime;
+                audioSource.Stop();
                 CancelInvoke("PrintTextUpdate");
+
                 Debug.Log("LOADING COMPLETE!");
-                // code when complete here.
+
+                if (setupUI.headsetValid)
+                {
+                    Debug.Log("Headset Valid!");
+
+                    // Transition to main menu.
+                    StartCoroutine(TransitionToMainMenu());
+                }
+                else
+                {
+                    
+                    Debug.Log("Headset Invalid!");
+                    
+                    // Transition to error screen.
+                    errorScreen.SetActive(true);
+                }
             }
         }
     }
@@ -67,5 +99,15 @@ public class LoadingUI : MonoBehaviour
             TextMeshProUGUI textUpdate = Instantiate(loadingText, this.transform);
             textUpdate.text = "LOADING... (" + roundedPercent + "% COMPLETED)";
         }
+    }
+
+    IEnumerator TransitionToMainMenu()
+    {
+        fadeAnimator.SetBool("FadeIn", true);
+        yield return new WaitForSeconds(.5f);
+        mainMenuScreen.SetActive(true);
+        setupUI.gameObject.SetActive(false);
+        fadeAnimator.SetBool("FadeIn", false);
+        menuBGM.StopBGM();
     }
 }

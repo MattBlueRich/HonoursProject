@@ -24,4 +24,9 @@ public class MenuBGM : MonoBehaviour
         audioSource.loop = true;
         audioSource.Play();
     }
+
+    public void StopBGM()
+    {
+        audioSource.Stop();
+    }
 }
