@@ -19,7 +19,7 @@ public class Flashlight : MonoBehaviour
     [Range(70, 120)]
     public float maxAngle = 120f; // Maximum FOV of light when stress = 1.0f;
 
-    [SerializeField] private float currentAngle;
+    [ReadOnlyInspector][SerializeField] private float currentAngle;
 
     [Header("Light Brightness")] // The brightness of the light is affected by the attention performance metrics.
 
@@ -39,8 +39,8 @@ public class Flashlight : MonoBehaviour
     [Range(4, 10)]
     public float maxRange = 10; // Maximum brightness of light when attention = 1.0f;
 
-    [SerializeField] private float currentBrightness;
-    [SerializeField] private float currentRange;
+    [ReadOnlyInspector][SerializeField] private float currentBrightness;
+    [ReadOnlyInspector][SerializeField] private float currentRange;
 
     private float currentStr = 0.0f;
     private float currentAtt = 0.0f;

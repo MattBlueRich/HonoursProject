@@ -17,9 +17,9 @@ public class OutputPMValues : MonoBehaviour
     [SerializeField] private TextMeshProUGUI relText;
 
     [Header("Performance Metrics Values")]
-    public float currentAtt = 0.0f;
-    public float currentStr = 0.0f;
-    public float currentRel = 0.0f;
+    [ReadOnlyInspector] public float currentAtt = 0.0f;
+    [ReadOnlyInspector] public float currentStr = 0.0f;
+    [ReadOnlyInspector] public float currentRel = 0.0f;
 
     [Header("Value Tick")]
     [SerializeField] private float tickSpeed = 20;
