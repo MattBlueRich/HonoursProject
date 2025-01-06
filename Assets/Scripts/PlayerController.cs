@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     // Input Fields
     private PlayerCharacterIA playerIA; // PlayerCharacterIA is an automated C# script form of the Input Action Component.
     private InputAction move;
+    [HideInInspector] public bool canMove = true;
 
     // Movement Fields
     private Rigidbody rb;
@@ -56,12 +57,14 @@ public class PlayerController : MonoBehaviour
     {
         // Moving
 
-        forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCam) * movementForce; // Add force in x-direction, in relation to the horizontal view of the camera.
-        forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCam) * movementForce; // Add force in z-direction, in relation to the forward view of the camera.
+        if (canMove)
+        {
+            forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCam) * movementForce; // Add force in x-direction, in relation to the horizontal view of the camera.
+            forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCam) * movementForce; // Add force in z-direction, in relation to the forward view of the camera.
 
-        rb.AddForce(forceDirection, ForceMode.Impulse); // Applies player character movement.
+            rb.AddForce(forceDirection, ForceMode.Impulse); // Applies player character movement.
 
-        forceDirection = Vector3.zero; // Disables fall-off acceleration.
+            forceDirection = Vector3.zero; // Disables fall-off acceleration.
 
             // Moving - Velocity Capping
 
@@ -72,14 +75,15 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = horizontalVelocity.normalized * maxSpeed + Vector3.up * rb.velocity.y;
             }
 
-        // Jumping = Reduce "floatiness" from falling
+            // Jumping = Reduce "floatiness" from falling
 
-        if (rb.velocity.y < 0f) // Is the player character currently falling?
-        {
-            rb.velocity -= Vector3.down * 2f * Physics.gravity.y * Time.fixedDeltaTime; // Increase acceleration as the player character falls.
+            if (rb.velocity.y < 0f) // Is the player character currently falling?
+            {
+                rb.velocity -= Vector3.down * 2f * Physics.gravity.y * Time.fixedDeltaTime; // Increase acceleration as the player character falls.
+            }
+
+            LookAt();
         }
-
-        LookAt();
     }
 
 
