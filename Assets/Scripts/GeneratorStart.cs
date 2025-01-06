@@ -33,7 +33,7 @@ public class GeneratorStart : MonoBehaviour, IInteractable // Object is marked a
     }
     private void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame && isInteracting)
+        if (Keyboard.current.anyKey.wasPressedThisFrame && isInteracting)
         {
             ToggleCanvas();
         }
