@@ -19,18 +19,26 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private float movementForce = 1.0f;
 
+    [Header("Movement Properties")]
     [SerializeField] private float jumpForce = 5.0f;
     [SerializeField] private float maxSpeed = 5.0f;
 
     private Vector3 forceDirection = Vector3.zero; // The forceDirection is the sum of all player character movement.
 
-    // Camera
+    [Header("Assign Camera")]
     [SerializeField] private Camera playerCam;
 
-    // Layer
+    [Header("Assign Ground")]
     [SerializeField] private LayerMask groundMask;
+
+    [Header("Cursor To Camera Properties")]
+    public GameObject cursorObj;
+    public float cameraCursorMaxDistance = 5.0f;
+
+
     private void Awake()
     {
+        cursorObj.transform.position = transform.position;
         rb = GetComponent<Rigidbody>();
         playerIA = new PlayerCharacterIA();
     }
@@ -135,6 +143,8 @@ public class PlayerController : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, groundMask))
         {
+            RestrictCursorMovement(hitInfo.point); // Affect camera track by mouse position.
+
             // Success: The raycast from the camera to the cursor has hit an object, and therefore it can now use this hit point position.
             return (success: true, position: hitInfo.point);
         }
@@ -159,5 +169,12 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private void RestrictCursorMovement(Vector3 hitPoint)
+    {
+        var currentPos = hitPoint; // Cursor position.
+
+        cursorObj.transform.position = transform.position + Vector3.ClampMagnitude(currentPos - transform.position, cameraCursorMaxDistance);
     }
 }
