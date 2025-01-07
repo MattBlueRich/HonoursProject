@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
 
     // Layer
     [SerializeField] private LayerMask groundMask;
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
