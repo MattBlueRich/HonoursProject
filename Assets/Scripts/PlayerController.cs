@@ -170,7 +170,6 @@ public class PlayerController : MonoBehaviour
             return false;
         }
     }
-
     private void RestrictCursorMovement(Vector3 hitPoint)
     {
         var currentPos = hitPoint; // Cursor position.

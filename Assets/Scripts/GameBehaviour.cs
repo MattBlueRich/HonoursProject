@@ -27,7 +27,7 @@ public class GameBehaviour : MonoBehaviour
     Color oddColour;
     Color evenColour;
 
-    bool hasWon = false;
+    [HideInInspector] public bool hasWon = false;
     bool changeProgressValue = false;
 
     // Start is called before the first frame update

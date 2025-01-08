@@ -12,6 +12,8 @@ public class PlayerInteract : MonoBehaviour
     private readonly Collider[] colliders = new Collider[3]; // How many interactable objects to search for.
     [ReadOnlyInspector][SerializeField] private int numFound; // How many interactable objects found.
 
+    bool interactableCheck = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -26,6 +28,24 @@ public class PlayerInteract : MonoBehaviour
             {
                 interactable.Interact(this); // Perform the interact function inside the overlapping object, passing a reference to this PlayerInteract.cs script.
             }
+
+            // CURSOR ---
+
+            // If the player is in-range of the interactable, and it can still be interacted with...
+            if (interactableCheck && interactable.Enabled)
+            {
+                interactableCheck = false;
+                CursorManager.instance.SetCursorInteract(); // Switch cursor icon to interact cursor icon.
+            }
+        }
+        // Else if there is no interactable in-range...
+        else if(numFound <=0 && !interactableCheck)
+        {
+            interactableCheck = true;
+
+            // CURSOR ---
+
+            CursorManager.instance.SetCursorNormal(); // Switch cursor icon to normal cursor icon.
         }
     }
 
