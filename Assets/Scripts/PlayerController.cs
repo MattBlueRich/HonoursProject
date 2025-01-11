@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -87,12 +88,11 @@ public class PlayerController : MonoBehaviour
             if (rb.velocity.y < 0f) // Is the player character currently falling?
             {
                 rb.velocity -= Vector3.down * 2f * Physics.gravity.y * Time.fixedDeltaTime; // Increase acceleration as the player character falls.
-            }
-
-            LookAt();
+            } 
         }
-    }
 
+        LookAt();
+    }
 
     // These region functions move the player character in the desired direction, in relation to the camera angle (great for Isometric games!).
 

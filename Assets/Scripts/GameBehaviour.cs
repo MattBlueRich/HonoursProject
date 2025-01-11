@@ -26,6 +26,7 @@ public class GameBehaviour : MonoBehaviour
     private List<Color> colors;
     Color oddColour;
     Color evenColour;
+    bool addTime = false;
 
     [HideInInspector] public bool hasWon = false;
     bool changeProgressValue = false;
@@ -52,17 +53,13 @@ public class GameBehaviour : MonoBehaviour
         if (changeProgressValue)
         {
             // If the slider value (rounded to 2dp) is not in an approximate range with the progressionValueNewTarget (slider value +/- new value, rounded to 2dp)...
-            if(!Mathf.Approximately(Mathf.Round(progressionBar.value * 100f) / 100f, progressionValueNewTarget))
+            if (addTime && progressionBar.value < progressionValueNewTarget)
             {
-                // Add / subtract by Time.deltaTime until slider value is approximately similar to target value.
-                if (progressionBar.value < progressionValueNewTarget)
-                {
-                    progressionBar.value += Time.deltaTime * 2f;
-                }
-                else if (progressionBar.value > progressionValueNewTarget)
-                {
-                    progressionBar.value -= Time.deltaTime * 2f;
-                }
+                progressionBar.value += Time.deltaTime * 2f;
+            }
+            else if (!addTime && progressionBar.value > progressionValueNewTarget)
+            {
+                progressionBar.value -= Time.deltaTime * 2f;
             }
             else
             {
@@ -139,11 +136,13 @@ public class GameBehaviour : MonoBehaviour
     {
         if(operation == "add")
         {
-            progressionValueNewTarget = Mathf.Round((progressionBar.value + value) * 100f) / 100f;    
+            progressionValueNewTarget = Mathf.Round((progressionBar.value + value) * 100f) / 100f;
+            addTime = true;
         }
         else if(operation == "subtract")
         {
             progressionValueNewTarget = Mathf.Round((progressionBar.value - value) * 100f) / 100f;
+            addTime = false;
         }
         else
         {
