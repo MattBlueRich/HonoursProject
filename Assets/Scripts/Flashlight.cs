@@ -10,13 +10,13 @@ public class Flashlight : MonoBehaviour
 
     [Header("Light Angle")] // The angle FOV of the light is affected by the stress performance metrics.
 
-    [Tooltip("When stress levels equal zero:")]
-    [Range(70, 120)]
-    public float minAngle = 70f; // Minimum FOV of light when stress = 0.0f;
-
     [Tooltip("When stress levels equal one:")]
     [Range(70, 120)]
-    public float maxAngle = 120f; // Maximum FOV of light when stress = 1.0f;
+    public float minAngle = 70f; // Minimum FOV of light when stress = 1.0f;
+
+    [Tooltip("When stress levels equal zero:")]
+    [Range(70, 120)]
+    public float maxAngle = 120f; // Maximum FOV of light when stress = 0.0f;
 
     [ReadOnlyInspector][SerializeField] private float currentAngle;
 
@@ -85,7 +85,7 @@ public class Flashlight : MonoBehaviour
     }
     public void UpdateLightAngle()
     {
-        currentAngle = Mathf.Lerp(minAngle, maxAngle, currentStr);
+        currentAngle = Mathf.Lerp(maxAngle, minAngle, currentStr);
         _light.spotAngle = currentAngle;
         _light.innerSpotAngle = currentAngle;
     }
