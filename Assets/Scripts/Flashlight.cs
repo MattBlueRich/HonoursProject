@@ -48,7 +48,12 @@ public class Flashlight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _light = GetComponent<Light>();  
+        _light = GetComponent<Light>();
+
+        // Default Values
+        UpdateLightAngle();
+        UpdateLightBrightness();
+
     }
 
     // Update is called once per frame

@@ -11,7 +11,6 @@ public class GeneratorStart : MonoBehaviour, IInteractable // Object is marked a
     bool canInteract = true;
     PlayerInteract player;
 
-
     private void Start()
     {
         PuzzleCanvas.gameObject.SetActive(false); // Hide canvas microgame by default.
@@ -27,6 +26,7 @@ public class GeneratorStart : MonoBehaviour, IInteractable // Object is marked a
     {
         if (canInteract)
         {
+            // Assign the player object as the interactor ONCE.
             if (player == null)
             {
                 player = interactor;
@@ -34,33 +34,35 @@ public class GeneratorStart : MonoBehaviour, IInteractable // Object is marked a
 
             Debug.Log("Interacting with generator!"); 
 
-            ToggleCanvas();
+            ToggleCanvas(); // Shows PuzzleCanvas when attempting to interact.
         }
     }
     private void Update()
     {
+        // Hides PuzzleCanvas when any key is pressed interacting.
         if (Keyboard.current.anyKey.wasPressedThisFrame && isInteracting)
         {
-            ToggleCanvas();
+            ToggleCanvas(); 
         }
     }
 
     public void ToggleCanvas()
     {
-        isInteracting = !isInteracting;
+        isInteracting = !isInteracting; // Toggle boolean.
 
         if (isInteracting)
         {
             PuzzleCanvas.gameObject.SetActive(true); // Show canvas microgame.
             player.GetComponent<PlayerController>().canMove = false; // Disables player movement.
-            CursorManager.instance.SetCursorNormal(); // Switch cursor to button press cursor.
+            player.GetComponent<PlayerController>().canLook = false; // Disables player aim movement.
+            
+            CursorManager.instance.SetCursorNormal(); // Switch cursor to normal cursor.
         }
         else
         {
-            PuzzleCanvas.gameObject.SetActive(false); // Show canvas microgame.
-            player.GetComponent<PlayerController>().canMove = true; // Disables player movement.
-
-            // CURSOR ---
+            PuzzleCanvas.gameObject.SetActive(false); // Hides canvas microgame.
+            player.GetComponent<PlayerController>().canMove = true; // Enables player movement.
+            player.GetComponent<PlayerController>().canLook = true; // Enables player aim movement.
 
             // If the puzzle canvas game hasn't been solved and is therefore still interactable...
             if (!gameBehaviour.hasWon)
@@ -70,6 +72,7 @@ public class GeneratorStart : MonoBehaviour, IInteractable // Object is marked a
         }
     }
 
+    // When the generator is activated successfully, the player can no longer interact with it.
     public void DisableInteraction()
     {
         canInteract = false;

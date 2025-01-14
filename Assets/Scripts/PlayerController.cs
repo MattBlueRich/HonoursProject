@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private PlayerCharacterIA playerIA; // PlayerCharacterIA is an automated C# script form of the Input Action Component.
     private InputAction move;
     [HideInInspector] public bool canMove = true;
+    [HideInInspector] public bool canLook = true;
 
     // Movement Fields
     private Rigidbody rb;
@@ -91,7 +92,10 @@ public class PlayerController : MonoBehaviour
             } 
         }
 
-        LookAt();
+        if (canLook)
+        {
+            LookAt();
+        }
     }
 
     // These region functions move the player character in the desired direction, in relation to the camera angle (great for Isometric games!).

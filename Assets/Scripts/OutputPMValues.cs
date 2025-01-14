@@ -42,6 +42,7 @@ public class OutputPMValues : MonoBehaviour
         {
             currentAtt -= tickSpeed * Time.deltaTime;
             currentAtt = Mathf.Round(currentAtt * 10.0f) * 0.1f;
+            Mathf.Abs(currentAtt);
             attText.text = currentAtt.ToString("F1");
         }
 
@@ -58,6 +59,7 @@ public class OutputPMValues : MonoBehaviour
         {
             currentRel -= tickSpeed * Time.deltaTime;
             currentRel = Mathf.Round(currentRel * 10.0f) * 0.1f;
+            Mathf.Abs(currentRel);
             relText.text = currentRel.ToString("F1");
         }
 
@@ -74,6 +76,7 @@ public class OutputPMValues : MonoBehaviour
         {
             currentStr -= tickSpeed * Time.deltaTime;
             currentStr = Mathf.Round(currentStr * 10.0f) * 0.1f;
+            Mathf.Abs(currentStr);
             strText.text = currentStr.ToString("F1");
         }
 
