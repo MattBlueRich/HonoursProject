@@ -27,6 +27,7 @@ TagManager:
   - Beta
   - WaveSlider
   - Insight
+  - SavePoint
   layers:
   - Default
   - TransparentFX
