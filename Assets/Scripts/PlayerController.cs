@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Properties")]
     [SerializeField] private float jumpForce = 5.0f;
     [SerializeField] private float maxSpeed = 5.0f;
+    [SerializeField] private float gravityForce = 2.0f;
 
     private Vector3 forceDirection = Vector3.zero; // The forceDirection is the sum of all player character movement.
 
@@ -88,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
             if (rb.velocity.y < 0f) // Is the player character currently falling?
             {
-                rb.velocity -= Vector3.down * 2f * Physics.gravity.y * Time.fixedDeltaTime; // Increase acceleration as the player character falls.
+                rb.velocity -= Vector3.down * gravityForce * Physics.gravity.y * Time.fixedDeltaTime; // Increase acceleration as the player character falls.
             } 
         }
 
