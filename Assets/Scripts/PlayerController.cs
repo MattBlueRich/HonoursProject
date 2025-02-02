@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
     private void RestrictCursorMovement(Vector3 hitPoint)
     {
         var currentPos = hitPoint; // Cursor position.
-
-        cursorObj.transform.position = transform.position + Vector3.ClampMagnitude(currentPos - transform.position, cameraCursorMaxDistance);
+        var newPos = transform.position + Vector3.ClampMagnitude(currentPos - transform.position, cameraCursorMaxDistance);
+        cursorObj.transform.position = newPos;   
     }
 }
