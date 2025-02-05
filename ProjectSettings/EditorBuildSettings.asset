@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: e020b7f85675a1d4d9e0d0adae1f5e11
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/Cryostasis 1.unity
     guid: f6f18c5561b705b488aa6e8ff9c762aa
   - enabled: 1
     path: Assets/Scenes/2 Drying Hall.unity
