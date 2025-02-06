@@ -9,7 +9,8 @@ public class DarknessObject : MonoBehaviour
     public float tickSpeed = 2f;
     [ReadOnlyInspector] public float currentHealth;
     public ParticleSystem deathParticleEffect;
-    
+    public ParticleSystem damageParticleEffect;
+
     private ObjectShake objShake;
     private GameObject model;
     private Flashlight flashlight;
@@ -43,6 +44,7 @@ public class DarknessObject : MonoBehaviour
                 objCollider.enabled = false; // Remove collider from this parent (disable further collision).
 
                 deathParticleEffect.Play();
+                damageParticleEffect.Stop();
 
                 if (shake)
                 {
@@ -61,8 +63,10 @@ public class DarknessObject : MonoBehaviour
             if(flashlight == null)
             {
                 flashlight = other.transform.parent.parent.GetComponent<Flashlight>();
+                
             }
-            
+
+            damageParticleEffect.Play();
             isLit = true;
         }
     }
@@ -72,6 +76,7 @@ public class DarknessObject : MonoBehaviour
         if (other.CompareTag("Flashlight"))
         {
             isLit = false;
+            damageParticleEffect.Stop();
         }
     }
 
