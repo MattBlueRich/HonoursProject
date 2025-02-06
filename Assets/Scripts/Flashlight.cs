@@ -41,9 +41,20 @@ public class Flashlight : MonoBehaviour
     [ReadOnlyInspector][SerializeField] private float currentBrightness;
     [ReadOnlyInspector][SerializeField] private float currentRange;
 
+    public bool DisableEmotivUpdates = false;
+
+    [Header("Light Collision")]
+    public Transform flashlightCollider;
+    public float minSizeX = 4.0f;
+    public float maxSizeX = 10.0f;
+    public float minSizeZ = 4.0f;
+    public float maxSizeZ = 10.0f;
+
     private float currentStr = 0.0f;
     private float currentAtt = 0.0f;
     private float tickSpeed = 0.5f;
+    private float currentSizeWidth = 1.0f;
+    private float currentSizeHeight = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -53,40 +64,43 @@ public class Flashlight : MonoBehaviour
         // Default Values
         UpdateLightAngle();
         UpdateLightBrightness();
-
     }
 
     // Update is called once per frame
     void Update()
-    {       
-        // Stress Counter (altered from OutputPMValues.cs to output values slower).
-
-        if (currentStr < (float)_eItf.stressPow)
+    {
+        if (!DisableEmotivUpdates)
         {
-            currentStr += tickSpeed * Time.deltaTime;
-            UpdateLightAngle();
+            // Stress Counter (altered from OutputPMValues.cs to output values slower).
+
+            if (currentStr < (float)_eItf.stressPow)
+            {
+                currentStr += tickSpeed * Time.deltaTime;
+                UpdateLightAngle();
+            }
+
+            if (currentStr > (float)_eItf.stressPow)
+            {
+                currentStr -= tickSpeed * Time.deltaTime;
+                UpdateLightAngle();
+            }
+
+            // Attention Counter (altered from OutputPMValues.cs to output values slower).
+
+            if (currentAtt < (float)_eItf.attentionPow)
+            {
+                currentAtt += tickSpeed * Time.deltaTime;
+                UpdateLightBrightness();
+            }
+
+            if (currentAtt > (float)_eItf.attentionPow)
+            {
+                currentAtt -= tickSpeed * Time.deltaTime;
+                UpdateLightBrightness();
+            }
         }
 
-        if (currentStr > (float)_eItf.stressPow)
-        {
-            currentStr -= tickSpeed * Time.deltaTime;
-            UpdateLightAngle();
-        }
-
-        // Attention Counter (altered from OutputPMValues.cs to output values slower).
-
-        if (currentAtt < (float)_eItf.attentionPow)
-        {
-            currentAtt += tickSpeed * Time.deltaTime;
-            UpdateLightBrightness();
-        }
-
-        if (currentAtt > (float)_eItf.attentionPow)
-        {
-            currentAtt -= tickSpeed * Time.deltaTime;
-            UpdateLightBrightness();
-        }
-
+        UpdateCollisionSize();
     }
     public void UpdateLightAngle()
     {
@@ -101,5 +115,12 @@ public class Flashlight : MonoBehaviour
         currentRange = Mathf.Lerp(minRange, maxRange, currentAtt);
         _light.intensity = currentBrightness;
         _light.range = currentRange;
+    }
+
+    public void UpdateCollisionSize()
+    {
+        currentSizeWidth = Mathf.Lerp(maxSizeX, minSizeX, currentStr);
+        currentSizeHeight = Mathf.Lerp(maxSizeZ, minSizeZ, currentAtt);
+        flashlightCollider.transform.localScale = new Vector3(transform.localScale.x * currentSizeWidth, transform.localScale.y, transform.localScale.z * currentSizeHeight);     
     }
 }

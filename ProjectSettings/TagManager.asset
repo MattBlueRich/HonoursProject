@@ -28,6 +28,7 @@ TagManager:
   - WaveSlider
   - Insight
   - SavePoint
+  - Flashlight
   layers:
   - Default
   - TransparentFX
