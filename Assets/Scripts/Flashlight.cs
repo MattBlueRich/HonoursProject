@@ -49,9 +49,11 @@ public class Flashlight : MonoBehaviour
     public float maxSizeX = 10.0f;
     public float minSizeZ = 4.0f;
     public float maxSizeZ = 10.0f;
+    [ReadOnlyInspector] public float damage;
 
     private float currentStr = 0.0f;
     private float currentAtt = 0.0f;
+
     private float tickSpeed = 0.5f;
     private float currentSizeWidth = 1.0f;
     private float currentSizeHeight = 1.0f;
@@ -71,37 +73,45 @@ public class Flashlight : MonoBehaviour
     {
         if (!DisableEmotivUpdates)
         {
-            // Stress Counter (altered from OutputPMValues.cs to output values slower).
-
-            if (currentStr < (float)_eItf.stressPow)
-            {
-                currentStr += tickSpeed * Time.deltaTime;
-                UpdateLightAngle();
-            }
-
-            if (currentStr > (float)_eItf.stressPow)
-            {
-                currentStr -= tickSpeed * Time.deltaTime;
-                UpdateLightAngle();
-            }
-
-            // Attention Counter (altered from OutputPMValues.cs to output values slower).
-
-            if (currentAtt < (float)_eItf.attentionPow)
-            {
-                currentAtt += tickSpeed * Time.deltaTime;
-                UpdateLightBrightness();
-            }
-
-            if (currentAtt > (float)_eItf.attentionPow)
-            {
-                currentAtt -= tickSpeed * Time.deltaTime;
-                UpdateLightBrightness();
-            }
+            GetPerformanceMetrics();
         }
 
         UpdateCollisionSize();
+        CalculateDamage();
     }
+
+    public void GetPerformanceMetrics()
+    {
+        // Stress Counter (altered from OutputPMValues.cs to output values slower).
+
+        if (currentStr < (float)_eItf.stressPow)
+        {
+            currentStr += tickSpeed * Time.deltaTime;
+            UpdateLightAngle();
+        }
+
+        if (currentStr > (float)_eItf.stressPow)
+        {
+            currentStr -= tickSpeed * Time.deltaTime;
+            UpdateLightAngle();
+        }
+
+        // Attention Counter (altered from OutputPMValues.cs to output values slower).
+
+        if (currentAtt < (float)_eItf.attentionPow)
+        {
+            currentAtt += tickSpeed * Time.deltaTime;
+            UpdateLightBrightness();
+        }
+
+        if (currentAtt > (float)_eItf.attentionPow)
+        {
+            currentAtt -= tickSpeed * Time.deltaTime;
+            UpdateLightBrightness();
+        }
+    }
+
+    // This function increases / decreases the FOV of the light source.
     public void UpdateLightAngle()
     {
         currentAngle = Mathf.Lerp(maxAngle, minAngle, currentStr);
@@ -109,6 +119,7 @@ public class Flashlight : MonoBehaviour
         _light.innerSpotAngle = currentAngle;
     }
 
+    // This function increases / decreases the brightness of the light source.
     public void UpdateLightBrightness()
     {
         currentBrightness = Mathf.Lerp(minBrightness, maxBrightness, currentAtt);
@@ -117,10 +128,17 @@ public class Flashlight : MonoBehaviour
         _light.range = currentRange;
     }
 
+    // This function increases / decreases the size of the light source collision.
     public void UpdateCollisionSize()
     {
         currentSizeWidth = Mathf.Lerp(maxSizeX, minSizeX, currentStr);
         currentSizeHeight = Mathf.Lerp(maxSizeZ, minSizeZ, currentAtt);
-        flashlightCollider.transform.localScale = new Vector3(transform.localScale.x * currentSizeWidth, transform.localScale.y, transform.localScale.z * currentSizeHeight);     
+        flashlightCollider.transform.localScale = new Vector3(transform.localScale.x * currentSizeWidth, transform.localScale.y, transform.localScale.z * currentSizeHeight);
+    }
+
+    // This function calculates the amount of damage to innact on objects, based on the scale of the light source.
+    public void CalculateDamage()
+    {
+        damage = currentSizeHeight/2 * currentSizeWidth/2;
     }
 }
