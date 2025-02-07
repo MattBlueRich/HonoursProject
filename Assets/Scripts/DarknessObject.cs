@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(ObjectShake))]
 public class DarknessObject : MonoBehaviour
@@ -10,6 +11,8 @@ public class DarknessObject : MonoBehaviour
     [ReadOnlyInspector] public float currentHealth;
     public ParticleSystem deathParticleEffect;
     public ParticleSystem damageParticleEffect;
+
+    public UnityEvent UE_OnDeath;
 
     private ObjectShake objShake;
     private GameObject model;
@@ -42,6 +45,8 @@ public class DarknessObject : MonoBehaviour
 
                 Destroy(model); // Destroy this object's visuals.
                 objCollider.enabled = false; // Remove collider from this parent (disable further collision).
+
+                UE_OnDeath?.Invoke();
 
                 deathParticleEffect.Play();
                 damageParticleEffect.Stop();
