@@ -38,12 +38,15 @@ public class PlayerController : MonoBehaviour
     public GameObject cursorObj;
     public float cameraCursorMaxDistance = 5.0f;
 
+    [HideInInspector] public bool disableAllMovement = false;
 
     private void Awake()
     {
         cursorObj.transform.position = transform.position;
         rb = GetComponent<Rigidbody>();
         playerIA = new PlayerCharacterIA();
+
+        disableAllMovement = false;
     }
 
     // These region functions only enable the use of Input Actions, when the player character is also enabled.
@@ -65,37 +68,40 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Moving
-
-        if (canMove)
+        if (!disableAllMovement)
         {
-            forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCam) * movementForce; // Add force in x-direction, in relation to the horizontal view of the camera.
-            forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCam) * movementForce; // Add force in z-direction, in relation to the forward view of the camera.
+            // Moving
 
-            rb.AddForce(forceDirection, ForceMode.Impulse); // Applies player character movement.
-
-            forceDirection = Vector3.zero; // Disables fall-off acceleration.
-
-            // Moving - Velocity Capping
-
-            Vector3 horizontalVelocity = rb.velocity;
-            horizontalVelocity.y = 0f;
-            if (horizontalVelocity.sqrMagnitude > maxSpeed * maxSpeed)
+            if (canMove)
             {
-                rb.velocity = horizontalVelocity.normalized * maxSpeed + Vector3.up * rb.velocity.y;
+                forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCam) * movementForce; // Add force in x-direction, in relation to the horizontal view of the camera.
+                forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCam) * movementForce; // Add force in z-direction, in relation to the forward view of the camera.
+
+                rb.AddForce(forceDirection, ForceMode.Impulse); // Applies player character movement.
+
+                forceDirection = Vector3.zero; // Disables fall-off acceleration.
+
+                // Moving - Velocity Capping
+
+                Vector3 horizontalVelocity = rb.velocity;
+                horizontalVelocity.y = 0f;
+                if (horizontalVelocity.sqrMagnitude > maxSpeed * maxSpeed)
+                {
+                    rb.velocity = horizontalVelocity.normalized * maxSpeed + Vector3.up * rb.velocity.y;
+                }
+
+                // Jumping = Reduce "floatiness" from falling
+
+                if (rb.velocity.y < 0f) // Is the player character currently falling?
+                {
+                    rb.velocity -= Vector3.down * gravityForce * Physics.gravity.y * Time.fixedDeltaTime; // Increase acceleration as the player character falls.
+                }
             }
 
-            // Jumping = Reduce "floatiness" from falling
-
-            if (rb.velocity.y < 0f) // Is the player character currently falling?
+            if (canLook)
             {
-                rb.velocity -= Vector3.down * gravityForce * Physics.gravity.y * Time.fixedDeltaTime; // Increase acceleration as the player character falls.
-            } 
-        }
-
-        if (canLook)
-        {
-            LookAt();
+                LookAt();
+            }
         }
     }
 
