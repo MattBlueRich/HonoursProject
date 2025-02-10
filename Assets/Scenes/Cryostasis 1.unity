@@ -20332,7 +20332,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1450
+  m_Name: pb_Mesh-55108
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -103082,7 +103082,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-135626
+  m_Name: pb_Mesh-54940
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -118100,6 +118100,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_VersionIndex
       value: 2817
+      objectReference: {fileID: 0}
+    - target: {fileID: 212182454180389948, guid: 681ed736e8c63994ca1d3701681d61ff,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 212182454180389948, guid: 681ed736e8c63994ca1d3701681d61ff,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212182454180389948, guid: 681ed736e8c63994ca1d3701681d61ff,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 212182454459640451, guid: 681ed736e8c63994ca1d3701681d61ff,
         type: 3}
