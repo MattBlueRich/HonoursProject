@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TriggerFall : MonoBehaviour
 {
     public Rigidbody[] platforms;
     private bool onTrigger = false;
+    public UnityEvent UE_OnFall;
 
     private void Start()
     {
@@ -35,6 +37,7 @@ public class TriggerFall : MonoBehaviour
         if (other.CompareTag("Player") && onTrigger)
         {
             UsePhysics(true);
+            UE_OnFall.Invoke();
         }
     }
     public void EnableTrigger()
