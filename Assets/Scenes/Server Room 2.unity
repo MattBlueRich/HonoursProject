@@ -12999,11 +12999,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1341853610}
     m_Modifications:
-    - target: {fileID: 16475965828789454, guid: db0091939c66346428c34b4960354239,
-        type: 3}
-      propertyPath: outlineWidth
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 865690403666471262, guid: db0091939c66346428c34b4960354239,
         type: 3}
       propertyPath: m_StaticEditorFlags
