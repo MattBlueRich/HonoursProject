@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class GeneratorStart : MonoBehaviour, IInteractable // Object is marked as interactable, and must use the interact function.
 {
+    public OutlineEffect outline;
+
     public Canvas PuzzleCanvas;
     public GameBehaviour gameBehaviour; // Responsible for the puzzle canvas mechanics.
     bool isInteracting = false;
@@ -16,11 +18,21 @@ public class GeneratorStart : MonoBehaviour, IInteractable // Object is marked a
     private void Start()
     {
         PuzzleCanvas.gameObject.SetActive(false); // Hide canvas microgame by default.
+        ShowOutline(false);
     }
 
     public bool Enabled
     {
         get { return canInteract; }
+    }
+
+    // Called by PlayerInteract.cs when the player is hovering inside/outside the object.
+    public void ShowOutline(bool showOutline)
+    {
+        if (outline != null)
+        {
+            outline.enabled = showOutline;
+        }
     }
 
     // Called by PlayerInteract.cs when the player is attempting to interact with the object.

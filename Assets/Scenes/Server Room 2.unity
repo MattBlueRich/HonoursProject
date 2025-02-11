@@ -3901,8 +3901,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1506978688}
   checkpoints:
-  - {fileID: 581868976}
   - {fileID: 121253950}
+  - {fileID: 581868976}
 --- !u!1 &312438975
 GameObject:
   m_ObjectHideFlags: 0
@@ -28735,6 +28735,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Generator
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211343577703254012, guid: 71cdc3cefa672514f9059f8a8f72381d,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211343577703254012, guid: 71cdc3cefa672514f9059f8a8f72381d,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2211343577703254012, guid: 71cdc3cefa672514f9059f8a8f72381d,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3445129233755487620, guid: 71cdc3cefa672514f9059f8a8f72381d,
         type: 3}
