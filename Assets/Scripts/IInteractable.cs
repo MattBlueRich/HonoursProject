@@ -7,6 +7,8 @@ public interface IInteractable
 {
     public void Interact(PlayerInteract interactor) { }
 
+    public void ShowOutline(bool showOutline) { }
+
     bool Enabled { get; }
 }
 

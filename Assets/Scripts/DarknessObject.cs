@@ -13,6 +13,7 @@ public class DarknessObject : MonoBehaviour
     public ParticleSystem damageParticleEffect;
 
     public UnityEvent UE_OnDeath;
+    public OutlineEffect outline;
 
     private ObjectShake objShake;
     private GameObject model;
@@ -28,6 +29,12 @@ public class DarknessObject : MonoBehaviour
         model = transform.GetChild(0).gameObject;
         currentHealth = maxHealth;
         objCollider = GetComponent<Collider>();
+
+        if (outline != null)
+        {
+            outline.enabled = false;
+        }
+
     }
     private void Update()
     {
@@ -68,7 +75,11 @@ public class DarknessObject : MonoBehaviour
             if(flashlight == null)
             {
                 flashlight = other.transform.parent.parent.GetComponent<Flashlight>();
-                
+            }
+
+            if(outline != null)
+            {
+                outline.enabled = true;
             }
 
             damageParticleEffect.Play();
@@ -82,6 +93,11 @@ public class DarknessObject : MonoBehaviour
         {
             isLit = false;
             damageParticleEffect.Stop();
+
+            if (outline != null)
+            {
+                outline.enabled = false;
+            }
         }
     }
 

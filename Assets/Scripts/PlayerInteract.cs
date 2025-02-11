@@ -13,6 +13,7 @@ public class PlayerInteract : MonoBehaviour
     [ReadOnlyInspector][SerializeField] private int numFound; // How many interactable objects found.
 
     bool interactableCheck = false;
+    private IInteractable lastInteractable;
 
     // Update is called once per frame
     void Update()
@@ -23,10 +24,20 @@ public class PlayerInteract : MonoBehaviour
         if(numFound > 0) // If an object with the interactable layer mask enters the OverlapSphere...
         {
             var interactable = colliders[0].GetComponent<IInteractable>(); // Attempts to get the overlapping object's IInteractable Interface.
+            lastInteractable = interactable;
 
-            if (interactable != null & Keyboard.current.eKey.wasPressedThisFrame) // If the overlapping object DOES in fact have an IInteractable Interface...
+            if (interactable != null) // If the overlapping object DOES in fact have an IInteractable Interface...
             {
-                interactable.Interact(this); // Perform the interact function inside the overlapping object, passing a reference to this PlayerInteract.cs script.
+                interactable.ShowOutline(true); // Show the interactable's outline while in-range.
+
+                if (Keyboard.current.eKey.wasPressedThisFrame) // If the interact button is pressed...
+                {
+                    interactable.Interact(this); // Perform the interact function inside the overlapping object, passing a reference to this PlayerInteract.cs script.
+                }      
+            }
+            else
+            {
+                interactable.ShowOutline(false); // Stop showing the interactable if no longer the first interactable in index.
             }
 
             // CURSOR ---
@@ -43,6 +54,11 @@ public class PlayerInteract : MonoBehaviour
         {
             interactableCheck = true;
 
+            if(lastInteractable != null)
+            {
+                lastInteractable.ShowOutline(false); // Stop showing the outline of the last active interactable.
+            }
+
             // CURSOR ---
 
             CursorManager.instance.SetCursorNormal(); // Switch cursor icon to normal cursor icon.
@@ -55,4 +71,5 @@ public class PlayerInteract : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(interactionPoint.position, interactionPointRadius);
     }
+
 }
